@@ -22,6 +22,20 @@ jobs:
       - checkout
       - run: echo "Deploying to the production server"
 
+# workflows:
+#   build_test_deploy:
+#     jobs:
+#       - build
+#       - test:
+#           requires:
+#             - build
+#       - deploy:
+#           requires:
+#             - test
+#           filters:
+#             branches:
+#               - only: main
+
 workflows:
   build_test_deploy:
     jobs:
@@ -29,9 +43,9 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
+      - deploy:   # Update the deploy job to a string value
           requires:
             - test
           filters:
             branches:
-              - only: main
+              only: main   # Update branches to use the correct mapping syntax
